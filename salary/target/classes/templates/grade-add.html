@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+   <body class="hold-transition  sidebar-mini">
+      <!-- Site wrapper START-->
+      <div class="wrapper" >
+          <section class="content" >
+             <h1>Grade Setting</h1>
+              <form class="form-horizontal" action="#" method="post" th:object="${grade}"
+								data-th-action="@{/grade-add-save.html}">
+             <div class="form-group has-feedback">
+               <label>Basic of lowest grade:</label>
+                <input type="number" name="basicSalary" class="form-control" id="gradeId" required="required" min="0"/>
+             </div>
+
+        <!-- /.col -->
+        <div class="col-xs-4">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Submit</button>
+        </div>
+        <!-- /.col -->
+      </div>
+    </form>
+          </section>
+<h1><a href="employee-salary-sheet.pdf">Employee Balance Sheet</a></h1>
+      </div>
+   </body>
+</html>

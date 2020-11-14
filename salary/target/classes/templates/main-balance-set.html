@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+   <body class="hold-transition  sidebar-mini">
+      <!-- Site wrapper START-->
+      <div class="wrapper" >
+          <section class="content" >
+              <h1>Main Balance Setting</h1>
+              <form class="form-horizontal" action="#" method="post" th:object="${balance}"
+								data-th-action="@{/main-balance-set-save.html}">
+             <div class="form-group has-feedback">
+                <input type="number" name="bankBalance" class="form-control" id="bankBalance" required="required" min="0"/>
+             </div>
+      <div class="row">
+        <div class="col-xs-8">
+
+        </div>
+        <!-- /.col -->
+        <div class="col-xs-4">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Submit</button>
+        </div>
+        <!-- /.col -->
+      </div>
+    </form>
+          </section>
+
+      </div>
+   </body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<style>
+table, th, td {
+  border: 1px solid black;
+}
+</style>
+</head>
+   <body class="hold-transition  sidebar-mini">
+      <!-- Site wrapper START-->
+      <div class="wrapper" >
+          <section class="content" >
+      
+              <form class="form-horizontal" action="#" method="post" th:object="${employee}"
+								data-th-action="@{/employee-add-save.html}">
+             <div class="form-group has-feedback">
+                <label>Employee Name:</label>
+                <input type="text" name="empName" class="form-control" id="empName" required="required"/>
+             </div>
+
+            <div class="form-group has-feedback">
+                <label>Grade:</label>
+                <select th:field="*{grade}" required="required">
+                   <option th:each="rank : ${gradeList}" 
+								  th:text="${rank.gradeId}" th:value="${rank.gradeId}">
+                </select>
+            </div>
+            
+            <div class="form-group has-feedback">
+                <label>Address:</label>
+                <input type="text" name="address" class="form-control" id="address"/>
+            </div>
+            
+            <div class="form-group has-feedback">
+                <label>Mobile:</label>
+                <input type="text" name="mobile" class="form-control" id="mobile"/>
+            </div>
+            
+             <div class="form-group has-feedback">
+                <label>Account Number:</label>
+                <input type="text" th:field="*{account.accountNumber}" class="form-control" required="required"/>
+             </div>
+             
+             <div class="form-group has-feedback">
+                <label>Account Type:</label>
+                <select th:field="*{account.accountType}" class="form-control" required="required"/>
+                  <option th:value="Saving">Saving Account</option>
+                  <option th:value="Current">Current Account</option>
+                </select>
+             </div>
+             
+             <div class="form-group has-feedback">
+                <label>Account Name:</label>
+                <input type="text" th:field="*{account.accountName}" class="form-control" required="required"/>
+             </div>
+             
+             <div class="form-group has-feedback">
+                <label>Current Balance:</label>
+                <input type="number" th:field="*{account.currentBalance}" class="form-control" required="required" min="0.00"/>
+             </div>
+             
+             <div class="form-group has-feedback">
+                <label>Bank Name:</label>
+                <input type="text" th:field="*{account.bankName}" class="form-control" required="required"/>
+             </div>
+             
+             <div class="form-group has-feedback">
+                <label>Branch Name:</label>
+                <input type="text" th:field="*{account.branchName}" class="form-control"/>
+             </div>
+             
+        <!-- /.col -->
+        <div class="col-xs-4">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Submit</button>
+        </div>
+        <!-- /.col -->
+      </div>
+    </form>
+           <h1><a href="balance-transfer">Transfer Balance</a></h1>
+          <h1><a href="employee-salary-sheet.pdf">Employee Balance Sheet</a></h1>
+    </section>
+          <section class="content">
+            <h1>Employee List</h1>
+               <table>
+                  <thead>
+                    <tr>
+                      <th>Emp Name</th>
+                      <th>Grade</th>
+                      <th>Address</th>
+                      <th>Mobile</th>
+                      <th>Account No</th>
+                      <th>Account type</th>
+                      <th>Account Name</th>
+                      <th>Balance</th>
+                      <th>Bank Name</th>
+                      <th>Branch Name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="emp, itrEmp : ${employeeList}">
+                      <td th:text="${emp.empName}">Emp Name</td>
+                      <td th:text="${emp.grade}">Grade</td>
+                      <td th:text="${emp.address}">Address</td>
+                      <td th:text="${emp.mobile}">Mobile</td>
+                      <td th:text="${emp.account.accountNumber}">Account No.</td>
+                      <td th:text="${emp.account.accountType}">Account Type</td>
+                      <td th:text="${emp.account.accountName}">Account Name</td>
+                      <td th:text="${emp.account.currentBalance}">Current Balance</td>
+                      <td th:text="${emp.account.bankName}">Bank Name</td>
+                      <td th:text="${emp.account.branchName}">Branch</td>
+               </table>
+          </section>
+          
+      </div>
+   </body>
+</html>
