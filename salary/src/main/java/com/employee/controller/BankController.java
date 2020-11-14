@@ -33,7 +33,7 @@ public class BankController
 	
 	@ResponseBody
 	@PostMapping("main-balance-add-save.html")
-	public BankEntity balanceAddSave(@Valid @ModelAttribute BankEntity balance)
+	public String balanceAddSave(@Valid @ModelAttribute BankEntity balance)
 	{
 		Double total=0d;
 		BankEntity storedEntity = bankService.getBalanceAccount();
@@ -42,7 +42,12 @@ public class BankController
 		
 		total=total+balance.getBankBalance();
 		logger.info("Bank balance: "+balance);
-		return bankService.setBalanceAccount(total);
+		BankEntity entity = bankService.setBalanceAccount(total);
+		String str = entity.toString();
+		if(entity.getRequiredBalance()==0)
+			str += ". Please reload balance tranfer page.";
+		
+		return str;
 	}
 
 }
