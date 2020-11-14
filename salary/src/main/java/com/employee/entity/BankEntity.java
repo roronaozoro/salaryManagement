@@ -62,8 +62,9 @@ public class BankEntity
 
 	@Override
 	public String toString() {
-		return "BankAccountEntity [id=" + id + ", bankBalance=" + bankBalance + "]";
+		return "BankEntity [id=" + id + ", bankBalance=" + bankBalance + ", requiredBalance=" + requiredBalance + "]";
 	}
+
   
     
 }
