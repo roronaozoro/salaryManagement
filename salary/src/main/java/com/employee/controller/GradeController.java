@@ -18,35 +18,22 @@ public class GradeController
 {
 	@Autowired GradeRepository gradeRepo; 
 	@Autowired EmployeeRepository empRepo;
-	private static final Logger             logger = LoggerFactory.getLogger(GradeController.class);
+	private static final Logger logger = LoggerFactory.getLogger(GradeController.class);
+	private final double addition = 5000d;
 	
-	@GetMapping("/")
-	public String view(Model model)
-	{
-		return "main-balance-set";
-	}
 	
 	@PostMapping("/grade-add-save.html")
 	public String gradeAddSave(Model model, @RequestParam("basicSalary") Double basicSalary)
 	{
-		GradeEntity entity6 = new GradeEntity(6,2,basicSalary);
-		basicSalary+=5000;
-		GradeEntity entity5 = new GradeEntity(5,2,basicSalary);
-		basicSalary+=5000;
-		GradeEntity entity4 = new GradeEntity(4,2,basicSalary);
-		basicSalary+=5000;
-		GradeEntity entity3 = new GradeEntity(3,2,basicSalary);
-		basicSalary+=5000;
-		GradeEntity entity2 = new GradeEntity(2,1,basicSalary);
-		basicSalary+=5000;
-		GradeEntity entity1 = new GradeEntity(1,1,basicSalary);
-		
-		gradeRepo.save(entity1);
-		gradeRepo.save(entity2);
-		gradeRepo.save(entity3);
-		gradeRepo.save(entity4);
-		gradeRepo.save(entity5);
-		gradeRepo.save(entity6);
+		int count=0;
+		int employeeNumber=2;
+		for(int grade=6;grade>=1;grade--)
+		{
+			if(grade<=2)
+				employeeNumber=1;
+			GradeEntity gradeEntity = new GradeEntity(grade,employeeNumber,basicSalary+(addition*count++));
+		    gradeRepo.save(gradeEntity);
+		}
 
 		logger.info("Grade Information: ");
 		List<GradeEntity> gradeList = gradeRepo.findAll();
