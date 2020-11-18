@@ -30,7 +30,7 @@ public class EmployeeController
 	@Autowired AccountRepository accountRepo;
 	@Autowired SalarySheetService salaryService;
 	
-	private static final Logger             logger = LoggerFactory.getLogger(EmployeeController.class);
+	private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 	
 	@GetMapping("emp-info-add.html")
 	public String empInfo(Model model)
@@ -43,11 +43,12 @@ public class EmployeeController
 	
 	@ResponseBody
 	@PostMapping("employee-add-save.html")
-	public String empSave(@Valid @ModelAttribute EmployeeEntity employee,BindingResult result,@RequestParam Integer grade)
+	public String empSave(@Valid @ModelAttribute EmployeeEntity employee, BindingResult result, @RequestParam Integer grade)
 	{
 		if(result.hasErrors())
 		{
 			logger.info("Error: "+result.getAllErrors());
+			return "Validation failed";
 		}
 		AccountEntity acc = accountRepo.save(employee.getAccount());
 		employee.setAccount(acc);
