@@ -46,39 +46,27 @@ public class SalarySheetServiceImpl implements SalarySheetService{
         table.setWidths(new float[] {0.5f, 1.5f, 1.5f, 1.5f, 1.5f, 2.5f});
         table.setSpacingBefore(30);
         Font headFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD,10f);
+        String[] list = {"SL.","Emp Name","Rank","Basic","House Rent","Medical Allowance"};
+        
         PdfPCell tableCell;
-        tableCell = cell(headFont,"SL.");
-        table.addCell(tableCell);
-        tableCell = cell(headFont,"Emp Name");
-        table.addCell(tableCell);
-        tableCell = cell(headFont,"Rank");
-        table.addCell(tableCell);
-        tableCell = cell(headFont,"Basic");
-        table.addCell(tableCell);
-        tableCell = cell(headFont,"House Rent");
-        table.addCell(tableCell);
-        tableCell = cell(headFont,"Medical Allowance");
-        table.addCell(tableCell);
-
+        for(String str: list)
+        {
+            tableCell = cell(headFont,str);
+            table.addCell(tableCell);
+        }
         font = FontFactory.getFont(FontFactory.HELVETICA,9f);
         List<EmployeeEntity> empList = repository.findAll();
         Integer count=1;
         for(EmployeeEntity emp: empList)
         {
-            tableCell = data(font,count.toString());
-            table.addCell(tableCell);
+        	GradeEntity grade = gradeRepo.findById(emp.getGrade()).get();
+            table.addCell(data(font,count.toString()));
             count++;
-            tableCell = data(font,emp.getEmpName());
-            table.addCell(tableCell);
-            tableCell = data(font,emp.getGrade().toString());
-            table.addCell(tableCell);
-            GradeEntity grade = gradeRepo.findById(emp.getGrade()).get();
-            tableCell = data(font,String.format("%.2f", grade.getBasicSalary()));
-            table.addCell(tableCell);
-            tableCell = data(font,String.format("%.2f", grade.getHouseRent()));
-            table.addCell(tableCell);
-            tableCell = data(font,String.format("%.2f", grade.getMedicalAllowance()));
-            table.addCell(tableCell);
+            table.addCell(data(font,emp.getEmpName()));
+            table.addCell(data(font,emp.getGrade().toString()));
+            table.addCell(data(font,String.format("%.2f", grade.getBasicSalary())));
+            table.addCell(data(font,String.format("%.2f", grade.getHouseRent())));
+            table.addCell(data(font,String.format("%.2f", grade.getMedicalAllowance())));
         }
         
         document.add(table);
